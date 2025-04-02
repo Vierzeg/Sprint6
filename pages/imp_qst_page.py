@@ -1,37 +1,55 @@
 # imp_qst_page.py
 
-from locators.imp_qst_locators import *
-class PageImportantQuestion:
-# Описание элементов
-    question_1 = [*QUESTION_LOC1]
-    question_2 = [*QUESTION_LOC2]
-    question_3 = [*QUESTION_LOC3]
-    question_4 = [*QUESTION_LOC4]
-    question_5 = [*QUESTION_LOC5]
-    question_6 = [*QUESTION_LOC6]
-    question_7 = [*QUESTION_LOC7]
-    question_8 = [*QUESTION_LOC8]
+from locators.imp_qst_locators import QUESTION_LOCATORS, TEXT_LOCATORS
+from locators.base_page_locators import *
+import allure
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
-    qst_text_1 = [*text_qst1]
-    qst_text_2 = [*text_qst2]
-    qst_text_3 = [*text_qst3]
-    qst_text_4 = [*text_qst4]
-    qst_text_5 = [*text_qst5]
-    qst_text_6 = [*text_qst6]
-    qst_text_7 = [*text_qst7]
-    qst_text_8 = [*text_qst8]
-# Создаем драйвер
-    def __init__(self,driver):
+class PageImportantQuestion:
+    def __init__(self, driver):
         self.driver = driver
 
-    def click_list_button(self):
-        self.driver.find_element(question_1)
+    @allure.step("Закрытие окна с cookie")
+    def close_cookie_banner(self):
+        try:
+            # Ожидаем появления баннера с cookies
+            WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located(COOKIE_BANNER_LOC)
+            )
+            # Ожидаем, пока кнопка закрытия станет кликабельной
+            cookie_button = WebDriverWait(self.driver, 10).until(
+                EC.element_to_be_clickable(COOKIE_BUTTON_LOC)
+            )
+            # Кликаем по кнопке закрытия баннера с cookies
+            cookie_button.click()
+            print("Баннер с cookies успешно закрыт.")
 
-    def check_list_text(self):
-        actually_set_text = self.driver.find_element()
-        expected_set_text = qst_text
-        assert  actually_set_text == expected_set_text
+        except Exception as e:
+            # В случае ошибки выводим сообщение
+            print(f"Не удалось закрыть баннер cookie: {e}")
 
+    @allure.step("Клик на вопрос")
+    def click_list_button(self, question_locator):
+        # Ожидаем, пока элемент не станет кликабельным
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(question_locator)
+        )
+        self.driver.find_element(*question_locator).click()
+
+    @allure.step("Проверка текста в ответе на вопрос")
+    def check_list_text(self, question_locator, expected_text):
+        index = QUESTION_LOCATORS.index(question_locator)
+        text_locator = TEXT_LOCATORS[index]
+
+        # Ждем, пока текст появится в элементе
+        WebDriverWait(self.driver, 10).until(
+            EC.text_to_be_present_in_element(text_locator, expected_text)
+        )
+
+        actual_text = self.driver.find_element(*text_locator).text
+        assert actual_text == expected_text, f"Ожидалось: {expected_text}, но получено: {actual_text}"
+
+    @allure.step("Ожидание загрузки главной страницы")
     def wait_for_load_home_page(self):
-
-    WebDriverWait(self.driver, 3).until(expected_conditions.visibility_of_element_located(self.HOME_LOGO_LOC))
+        WebDriverWait(self.driver, 3).until(EC.visibility_of_element_located(LOGO_HOME_LOC))
