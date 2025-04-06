@@ -1,4 +1,5 @@
 # imp_qst_locators.py
+
 from selenium.webdriver.common.by import By
 
 # Локаторы выпадающих списков с вопросами
