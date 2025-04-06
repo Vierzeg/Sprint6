@@ -1,29 +1,5 @@
 # test_transit_to_dzen.py
 
-# from pages.home_landing_page import HomeLandingPage
-# from helpers.url_holders import *
-# import allure
-# import pytest
-# from selenium import webdriver
-#
-# @allure.title("Проверка перехода на Яндекс Дзен по клику на логотип Яндекса")
-# class TestTransitToDzen:
-#
-#     @classmethod
-#     def setup_class(cls):
-#         cls.driver = webdriver.Chrome()
-#         cls.driver.get(url_home)  # Начальная страница
-#         cls.page_home = HomeLandingPage(cls.driver)
-#
-#     @allure.step("Кликаем на логотип Яндекса")
-#     def test_transit_to_dzen(self):
-#         self.page_home.click_yandex_logo_button()  # Клик по логотипу Яндекса
-#         self.page_home.check_url_dzen(url_dzen)  # Проверка, что открылся правильный URL
-#
-#     @classmethod
-#     def teardown_class(cls):
-#         cls.driver.quit()
-
 from pages.home_landing_page import HomeLandingPage
 from helpers.url_holders import *
 import allure
