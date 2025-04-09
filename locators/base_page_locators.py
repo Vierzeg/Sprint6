@@ -7,10 +7,8 @@ COOKIE_BUTTON_LOC = (By.XPATH, "//button[text()='да все привыкли']"
 LOGO_HOME_LOC = (By.CLASS_NAME, "Header_Disclaimer__3VEni")
 
 # Локаторы кнопок
-#ORDER_BUTTON_SMALL = (By.XPATH, "/html/body/div/div/div/div[1]/div[2]/button[1]")
-#ORDER_BUTTON_SMALL = (By.CSS_SELECTOR, "button.Button_Button__ra12g:contains('Заказать')")
-ORDER_BUTTON_SMALL = (By.XPATH, "//*[@id='root']/div/div/div[1]/div[2]/button[1]")
-ORDER_BUTTON_BIG = (By.XPATH, "//*[@id='root']//button")
-LOGO_YANDEX_BUTTON = (By.XPATH, '//*[@id="root"]/div/div/div[1]/div[1]/a[1]')
-LOGO_SCOOTER_BUTTON = (By.XPATH, '//*[@id="root"]/div/div[1]/div[1]/a[2]/img')
+ORDER_BUTTON_SMALL = (By.CLASS_NAME, "Button_Button__ra12g")
+ORDER_BUTTON_BIG = (By.CSS_SELECTOR, ".Button_Button__ra12g.Button_UltraBig__UU3Lp")
+LOGO_YANDEX_BUTTON = (By.XPATH, "//a[@href='//yandex.ru']")
+LOGO_SCOOTER_BUTTON = (By.XPATH, "//a[@class='Header_LogoScooter__3lsAR']//img[@alt='Scooter']")
 

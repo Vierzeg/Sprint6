@@ -1,55 +1,43 @@
 # for_who_page.py
 
-from locators.for_who_locators import *
-from helpers.customer_data_holders import *
 from pages.home_landing_page import *
-from locators.base_page_locators import *
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-
-class FillingFieldCustomer:
+from pages.base_page import BasePage
+from locators.for_who_locators import *
+from locators.about_rent_locators import *
+class FillingFieldCustomer(BasePage):
     def __init__(self, driver):
-        self.driver = driver
+        super().__init__(driver)
 
     @allure.step("Заполняем поле 'Имя'")
     def fill_name_field(self, name):
-        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(NAME_FIELD_LOCATOR)).send_keys(name)
+        self.send_keys(NAME_FIELD_LOCATOR, name)
 
     @allure.step("Заполняем поле 'Фамилия'")
     def fill_sec_name_field(self, sec_name):
-        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(SEC_NAME_FIELD_LOCATOR)).send_keys(sec_name)
+        self.send_keys(SEC_NAME_FIELD_LOCATOR, sec_name)
 
     @allure.step("Заполняем поле 'Адрес'")
     def fill_address_field(self, address):
-        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(ADDRESS_FIELD_LOCATOR)).send_keys(address)
+        self.send_keys(ADDRESS_FIELD_LOCATOR, address)
 
     @allure.step("Заполняем поле 'Станция метро'")
     def fill_metro_field(self, metro_st):
-        # Вводим текст в поле
-        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(METRO_FIELD_LOCATOR)).send_keys(metro_st)
-
+        self.send_keys(METRO_FIELD_LOCATOR, metro_st)
         # Дожидаемся появления элементов выпадающего списка
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(
-                (CHOOSE_ELEM_LOCATOR))
-        )
-
+        self.wait_until_visible(CHOOSE_ELEM_LOCATOR)
         option_locator = (
             By.XPATH, f"//*[@id='root']/div/div[2]/div[2]/div[4]//div[contains(text(), '{metro_st}')]"
         )
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(option_locator)).click()
+        self.click(option_locator)
 
     @allure.step("Заполняем поле 'Телефон'")
     def fill_tel_field(self, telephone_numb):
-        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(TEL_FIELD_LOCATOR)).send_keys(telephone_numb)
-
+        self.send_keys(TEL_FIELD_LOCATOR, telephone_numb)
 
     @allure.step("Нажимаем кнопку 'Далее'")
     def click_next_button(self):
-        WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(NEXT_BUTTON_LOCATOR)
-        ).click()
+        self.click(NEXT_BUTTON_LOCATOR)
 
     @allure.step("Ожидание загрузки главной страницы")
     def wait_for_load_whom_page(self):
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(HEADLINE_FOR_WHO_LOCATOR))
+        self.wait_until_visible(HEADLINE_FOR_WHO_LOCATOR)

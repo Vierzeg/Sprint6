@@ -3,12 +3,12 @@
 import pytest
 import allure
 from selenium import webdriver
-from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.firefox.options import Options
-from helpers.url_holders import url_home
 from pages.imp_qst_page import PageImportantQuestion
 from helpers.question_text_holders import *
-from locators.imp_qst_locators import QUESTION_LOCATORS
+from helpers.url_holders import *
+from locators.imp_qst_locators import *
+
 
 # Параметризуем тесты, используя и локаторы, и текст для проверки
 @allure.title("Проверка текста на важные вопросы")
@@ -30,11 +30,8 @@ class TestListQuestion:
         options = Options()
         options.headless = False  # Установите True, если не хотите открывать окно браузера
 
-        # Указываем путь к geckodriver, если он не в PATH
-        geckodriver_path = r"C:\Users\geckodriver\geckodriver.exe"  # Замените на путь к вашему geckodriver
-
         # Инициализация драйвера для Firefox
-        cls.driver = webdriver.Firefox(service=Service(executable_path=geckodriver_path), options=options)
+        cls.driver = webdriver.Firefox(options=options)
         cls.driver.get(url_home)
         cls.qst_of_list = PageImportantQuestion(cls.driver)
         cls.qst_of_list.close_cookie_banner()

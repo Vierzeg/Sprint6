@@ -1,13 +1,12 @@
 # test_transit_to_dzen.py
 
 from pages.home_landing_page import HomeLandingPage
-from helpers.url_holders import *
 import allure
 from selenium import webdriver
-from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from helpers.url_holders import *
 
 
 @allure.title("Проверка перехода на Яндекс Дзен по клику на логотип Яндекса")
@@ -19,11 +18,8 @@ class TestTransitToDzen:
         options = Options()
         options.headless = False  # Установите True, если не хотите открывать окно браузера
 
-        # Указываем путь к geckodriver, если он не в PATH
-        geckodriver_path = r"C:\Users\geckodriver\geckodriver.exe"
-
         # Инициализация драйвера для Firefox
-        cls.driver = webdriver.Firefox(service=Service(executable_path=geckodriver_path), options=options)
+        cls.driver = webdriver.Firefox(options=options)
         cls.driver.get(url_home)  # Начальная страница
         cls.page_home = HomeLandingPage(cls.driver)
 
@@ -42,4 +38,3 @@ class TestTransitToDzen:
     @classmethod
     def teardown_class(cls):
         cls.driver.quit()
-
