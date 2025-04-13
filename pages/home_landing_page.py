@@ -1,7 +1,5 @@
 # home_landing_page.py
 
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 import allure
 from pages.base_page import BasePage
 from locators.base_page_locators import *
@@ -33,10 +31,9 @@ class HomeLandingPage(BasePage):
     @allure.step("Кликаем на кнопку 'Яндекс' в логотипе")
     def click_yandex_logo_button(self):
         self.click(LOGO_YANDEX_BUTTON)
-        # Ожидаем появления новой вкладки
-        WebDriverWait(self.driver, 10).until(EC.number_of_windows_to_be(2))  # Проверяем, что открылась новая вкладка
+        self.wait_for_number_of_windows_to_be(2)
         new_window = self.driver.window_handles[1]
-        self.driver.switch_to.window(new_window)  # Переключаемся на новую вкладку
+        self.driver.switch_to.window(new_window)
 
     @allure.step("Проверка, что открылась страница Яндекс Дзена")
     def check_url_dzen(self, expected_url):

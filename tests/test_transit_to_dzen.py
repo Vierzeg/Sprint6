@@ -28,9 +28,7 @@ class TestTransitToDzen:
         self.page_home.click_yandex_logo_button()  # Клик по логотипу Яндекса
 
         # Явное ожидание перехода на страницу Яндекс Дзена
-        WebDriverWait(self.driver, 10).until(
-            EC.url_to_be(url_dzen)  # Ожидаем, что URL будет соответствовать ожидаемому
-        )
+        self.page_home.wait_until_url_to_be(url_dzen)
 
         # Проверка, что URL открылся правильный
         self.page_home.check_url_dzen(url_dzen)  # Проверка, что открылся правильный URL

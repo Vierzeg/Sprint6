@@ -26,7 +26,7 @@ class FillingFieldCustomer(BasePage):
         # Дожидаемся появления элементов выпадающего списка
         self.wait_until_visible(CHOOSE_ELEM_LOCATOR)
         option_locator = (
-            By.XPATH, f"//*[@id='root']/div/div[2]/div[2]/div[4]//div[contains(text(), '{metro_st}')]"
+            By.XPATH, f"//*[@id='root']//button[contains(@class, 'select-search__option') and .//div[contains(text(), '{metro_st}')]]"
         )
         self.click(option_locator)
 

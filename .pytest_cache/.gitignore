@@ -1,7 +1,0 @@
-.idea/
-.build/
-.target/
-*.log
-*.tmp
-venv/
-__pycache__/
